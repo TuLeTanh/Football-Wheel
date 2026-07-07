@@ -1,0 +1,945 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* --- PRD 3.4/3.5 Design Tokens --- */
+:root {
+  --color-primary: #2d6bff;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #06b6d4;
+
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --title: #111827;
+  --desc: #6b7280;
+  --disabled: #d1d5db;
+}
+
+.dark {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --border: #334155;
+  --title: #f8fafc;
+  --desc: #cbd5e1;
+  --disabled: #475569;
+}
+
+.app {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: max(env(safe-area-inset-top), 24px) 20px max(env(safe-area-inset-bottom), 24px);
+  color: var(--title);
+  background: var(--bg);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.shell {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: Oswald, Inter, sans-serif;
+  letter-spacing: 0;
+}
+
+/* --- Splash (PRD Part 2 / 1.5) --- */
+.splashScreen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  text-align: center;
+  background: var(--bg);
+  color: var(--title);
+}
+
+.splashLogo {
+  width: 84px;
+  height: 84px;
+  display: grid;
+  place-items: center;
+  border-radius: 24px;
+  background: var(--color-primary);
+  color: white;
+  margin-bottom: 8px;
+}
+
+.splashScreen h1 {
+  font-size: 2rem;
+}
+
+.splashScreen p {
+  color: var(--desc);
+}
+
+.splashSpinner {
+  margin-top: 24px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--color-primary);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Home (PRD 4) --- */
+.homeShell {
+  align-content: start;
+  min-height: calc(100vh - 48px);
+}
+
+.homeLogo {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 32px 0 8px;
+  text-align: center;
+}
+
+.homeLogoMark {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: var(--color-primary);
+  color: white;
+  margin-bottom: 8px;
+}
+
+.homeLogo h1 {
+  font-size: 2.4rem;
+}
+
+.homeLogo p {
+  color: var(--desc);
+}
+
+.homeCategories {
+  display: grid;
+  gap: 12px;
+}
+
+.homeCategoryCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+  color: inherit;
+  text-align: left;
+  transition: transform 0.15s ease;
+}
+
+.homeCategoryCard:active {
+  transform: scale(0.97);
+}
+
+.homeCategoryEmoji {
+  font-size: 1.8rem;
+}
+
+.homeCategoryText {
+  flex: 1;
+  display: grid;
+  gap: 2px;
+}
+
+.homeCategoryText small {
+  color: var(--desc);
+}
+
+.homeHub {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.homeHub button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  color: inherit;
+  font-weight: 600;
+}
+
+/* --- Shared screen header --- */
+.screenHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.screenHeaderText {
+  flex: 1;
+  display: grid;
+}
+
+.screenHeaderText h1 {
+  font-size: 1.5rem;
+}
+
+.screenHeaderText p {
+  color: var(--desc);
+  font-size: 0.85rem;
+}
+
+.iconButton {
+  width: 44px;
+  min-height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  color: inherit;
+}
+
+.iconButton.small {
+  width: 38px;
+  min-height: 38px;
+  border-radius: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.chip.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.filterRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* --- Wheel Panel (PRD 6/7) --- */
+.wheelPanel {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.statsSummary {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.statusGrid div {
+  display: grid;
+  gap: 3px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--bg);
+  text-align: center;
+}
+
+.statusGrid span {
+  font-family: Oswald, Inter, sans-serif;
+  font-size: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusGrid small {
+  color: var(--desc);
+  font-size: 0.72rem;
+}
+
+.result {
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.emptyResult {
+  color: var(--desc);
+  font-weight: 700;
+  text-align: center;
+}
+
+.result h2 {
+  font-size: clamp(1.6rem, 7vw, 2.6rem);
+  line-height: 1;
+}
+
+/* --- Wheel (PRD 3.17 / 3.18) --- */
+.wheelStage {
+  position: relative;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+}
+
+.wheelSvg {
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.25));
+}
+
+.wheelPointer {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 32px solid var(--color-primary);
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+}
+
+.wheelHub {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.winnerReveal {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.badge {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+  font-weight: 800;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.28);
+}
+
+.badgeLarge {
+  width: 84px;
+  height: 84px;
+  font-size: 1.4rem;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 16px;
+  font-weight: 700;
+}
+
+.primary {
+  flex: 1;
+  min-width: 140px;
+  color: white;
+  background: var(--color-primary);
+}
+
+.secondary {
+  flex: 1;
+  min-width: 120px;
+  color: inherit;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+.secondary.danger {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.block {
+  width: 100%;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* --- Selection (PRD 5) --- */
+.listPanel {
+  display: grid;
+  gap: 14px;
+}
+
+.listTools {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.listTools button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  color: inherit;
+  font-weight: 700;
+}
+
+.searchBox {
+  min-width: min(220px, 100%);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+.searchBox input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  color: inherit;
+  background: transparent;
+}
+
+.searchClear {
+  border: 0;
+  background: transparent;
+  color: var(--desc);
+  display: grid;
+  place-items: center;
+}
+
+.teamList {
+  display: grid;
+  gap: 8px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 60px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  color: inherit;
+  text-align: left;
+}
+
+.team.selected {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 8%, var(--card));
+}
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  border-radius: 7px;
+  border: 2px solid var(--border);
+  transition: all 0.15s ease;
+}
+
+.checkbox.checked {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.teamText {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.teamText strong,
+.teamText small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.teamText small {
+  color: var(--desc);
+}
+
+.selectionFooter {
+  position: sticky;
+  bottom: 0;
+  display: grid;
+  gap: 10px;
+  padding: 14px 0 4px;
+  background: linear-gradient(to top, var(--bg) 60%, transparent);
+}
+
+.selectionFooter p {
+  color: var(--desc);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* --- Empty state (PRD 8.8) --- */
+.emptyState {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 48px 16px;
+  color: var(--desc);
+  text-align: center;
+}
+
+.emptyStateTitle {
+  color: var(--title);
+  font-weight: 700;
+}
+
+/* --- History (PRD 8) --- */
+.hint {
+  color: var(--desc);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.historyGroups {
+  display: grid;
+  gap: 18px;
+}
+
+.historyGroup h3 {
+  margin-bottom: 8px;
+  color: var(--desc);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.historyList {
+  display: grid;
+  gap: 8px;
+}
+
+.historyCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 72px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  color: inherit;
+  text-align: left;
+  user-select: none;
+}
+
+.historyCardText {
+  display: grid;
+  gap: 2px;
+}
+
+.historyCardText small {
+  color: var(--desc);
+}
+
+/* --- Statistics (PRD 9) --- */
+.statsList {
+  display: grid;
+  gap: 10px;
+}
+
+.statsRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.statsRowMain {
+  flex: 1;
+  display: grid;
+  gap: 6px;
+}
+
+.statsRowHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.statsRowHead span {
+  color: var(--desc);
+}
+
+.statsBarTrack {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.statsBarFill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* --- Settings (PRD 10) --- */
+.settingsSection {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+}
+
+.settingsSection h3 {
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  color: var(--desc);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.settingsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settingsRow:last-of-type {
+  border-bottom: 0;
+}
+
+.settingsValue {
+  color: var(--desc);
+}
+
+.settingsTextBlock {
+  display: grid;
+  gap: 4px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.settingsTextBlock:last-child {
+  border-bottom: 0;
+}
+
+.settingsTextBlock p {
+  color: var(--desc);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.segmented {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.segmented button {
+  border: 0;
+  min-height: 36px;
+  padding: 0 12px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.segmented button.active {
+  background: var(--color-primary);
+  color: white;
+}
+
+.switch {
+  width: 46px;
+  height: 28px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--disabled);
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.switch .switchKnob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: white;
+  transition: transform 0.2s ease;
+}
+
+.switch.on {
+  background: var(--color-primary);
+}
+
+.switch.on .switchKnob {
+  transform: translateX(18px);
+}
+
+/* --- Locked list --- */
+.lockedList {
+  display: grid;
+  gap: 8px;
+  max-height: 40vh;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.lockedList li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.lockedList li strong {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- Dialogs (PRD 8.10) --- */
+.dialogOverlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.55);
+  z-index: 50;
+}
+
+.dialogCard {
+  width: min(360px, 100%);
+  display: grid;
+  gap: 12px;
+  padding: 24px;
+  border-radius: 24px;
+  background: var(--card);
+  color: var(--title);
+}
+
+.dialogCard p {
+  color: var(--desc);
+  font-size: 0.9rem;
+}
+
+.dialogActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.dialogActions button {
+  flex: 1;
+}
+
+/* --- Toasts (PRD 8.11) --- */
+.toastHost {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: max(env(safe-area-inset-bottom), 20px);
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.toast {
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #111827;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.toast-success {
+  background: var(--color-success);
+}
+
+.toast-danger {
+  background: var(--color-error);
+}
+
+/* --- Share card (PRD 11) --- */
+.shareCardWrap {
+  display: grid;
+  place-items: center;
+  padding: 8px 0;
+}
+
+.shareCard {
+  width: min(320px, 100%);
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 32px 24px;
+  border-radius: 24px;
+  text-align: center;
+}
+
+.shareCard-light {
+  background: linear-gradient(160deg, #ffffff, #eef2ff);
+  color: #111827;
+  border: 1px solid var(--border);
+}
+
+.shareCard-dark {
+  background: linear-gradient(160deg, #1e293b, #0f172a);
+  color: #f8fafc;
+  border: 1px solid var(--border);
+}
+
+.shareCardEyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+}
+
+.shareCard h2 {
+  font-size: 1.8rem;
+}
+
+.shareCardCategory {
+  opacity: 0.7;
+  font-size: 0.85rem;
+}
+
+.shareCardFooter {
+  margin-top: 8px;
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .primary,
+  .secondary {
+    width: 100%;
+  }
+}
