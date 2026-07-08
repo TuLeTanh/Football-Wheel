@@ -36,9 +36,9 @@ export function computeSpinTarget(
 ): SpinTarget {
   const sliceAngle = 360 / sliceCount;
   const sliceCenter = winnerIndex * sliceAngle + sliceAngle / 2;
-  // Wheel rotates clockwise; pointer is fixed at top (0deg / 12 o'clock).
-  // To bring `sliceCenter` under the pointer we rotate the wheel by -sliceCenter.
-  const targetWithinCircle = (360 - sliceCenter) % 360;
+  // Wheel rotates clockwise; pointer is fixed at the left (270deg / 9 o'clock).
+  // To bring `sliceCenter` under the pointer we rotate the wheel by 270 - sliceCenter.
+  const targetWithinCircle = (270 - sliceCenter + 360) % 360;
   const currentMod = ((currentRotation % 360) + 360) % 360;
   let delta = targetWithinCircle - currentMod;
   if (delta < 0) delta += 360;

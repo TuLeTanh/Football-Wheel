@@ -164,7 +164,7 @@ export default function WheelPage() {
 
   return (
     <div
-      className={`app ${resolvedTheme}${winner ? ' teamTinted' : ''}${reduceMotion ? ' reduceMotion' : ''}`}
+      className={`app wheelPage ${resolvedTheme}${winner ? ' teamTinted' : ''}${reduceMotion ? ' reduceMotion' : ''}`}
       style={tintColor ? ({ '--team-tint': tintColor } as CSSProperties) : undefined}
     >
       <section className="shell">

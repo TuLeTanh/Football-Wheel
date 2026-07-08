@@ -1,4 +1,5 @@
-import { initialsForTeam } from '@/utils/badge';
+import { useTranslation } from 'react-i18next';
+import { initialsForTeam, shortNameForTeam, translateRegion } from '@/utils/badge';
 import { crestUrlForTeam } from '@/utils/crest';
 import type { WheelSlice as WheelSliceModel } from '@/types';
 
@@ -6,9 +7,8 @@ interface WheelSliceProps {
   slice: WheelSliceModel;
   radius: number;
   center: number;
-  /** Unique per rendered slice (not per team, since a team can repeat across
-   * slices) so generated SVG ids like clipPath never collide in the DOM. */
   sliceKey: string;
+  index?: number;
 }
 
 function polarToCartesian(center: number, radius: number, angleDeg: number) {
@@ -31,63 +31,88 @@ function describeSlicePath(center: number, radius: number, angleStart: number, a
   ].join(' ');
 }
 
-export default function WheelSlice({ slice, radius, center, sliceKey }: WheelSliceProps) {
+const PINK_COLORS = ['#D12255', '#E83665', '#F05B85'];
+
+export default function WheelSlice({ slice, radius, center, sliceKey, index }: WheelSliceProps) {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+
   const midAngle = (slice.angleStart + slice.angleEnd) / 2;
   const path = describeSlicePath(center, radius, slice.angleStart, slice.angleEnd);
 
-  // Label sits along the slice's radial line. If the mid-angle falls in the
-  // lower half of the wheel, flip it 180deg so it never renders upside-down
-  // (PRD 3.17: "Text luon nam ngang. Khong bi xoay nguoc").
   const isLowerHalf = midAngle > 90 && midAngle < 270;
   const labelRotation = isLowerHalf ? midAngle + 180 : midAngle;
-  const labelRadius = radius * 0.62;
+
+  const logoRadius = radius * 0.84;
+  const textRadius = radius * 0.55;
+  const iconRadius = radius * 0.052;
   const crestUrl = crestUrlForTeam(slice.team.id);
-  const iconRadius = radius * 0.11;
-  const clipId = `crest-clip-${sliceKey}`;
+
+  // Alternating shades of pink-red to match the design reference
+  const sliceColor = index !== undefined ? PINK_COLORS[index % PINK_COLORS.length] : slice.color;
+
+  const name = shortNameForTeam(slice.team.name);
+  const region = slice.team.region ? translateRegion(slice.team.region, lang) : undefined;
+  const labelText = (slice.team.category === 'club' && region) ? `${name} / ${region}` : name;
+
+  const yLogo = isLowerHalf ? center + logoRadius : center - logoRadius;
+  const yText = isLowerHalf ? center + textRadius : center - textRadius;
+  const textRot = isLowerHalf ? 90 : -90;
 
   return (
     <g>
-      <path d={path} fill={slice.color} stroke="rgba(8, 13, 16, 0.55)" strokeWidth={1.5} />
+      <path d={path} fill={sliceColor} stroke="rgba(255, 255, 255, 0.45)" strokeWidth={1} />
       <g transform={`rotate(${labelRotation} ${center} ${center})`}>
+        {/* White circle background container for the logo, preventing distortion */}
+        <circle
+          cx={center}
+          cy={yLogo}
+          r={iconRadius}
+          fill="#ffffff"
+          stroke="rgba(0, 0, 0, 0.12)"
+          strokeWidth={0.75}
+        />
         {crestUrl ? (
-          <>
-            <clipPath id={clipId}>
-              <circle cx={center} cy={center - labelRadius} r={iconRadius} />
-            </clipPath>
-            <circle cx={center} cy={center - labelRadius} r={iconRadius} fill="#ffffff" />
-            <image
-              href={crestUrl}
-              x={center - iconRadius}
-              y={center - labelRadius - iconRadius}
-              width={iconRadius * 2}
-              height={iconRadius * 2}
-              clipPath={`url(#${clipId})`}
-              preserveAspectRatio="xMidYMid meet"
-            />
-            <circle
-              cx={center}
-              cy={center - labelRadius}
-              r={iconRadius}
-              fill="none"
-              stroke="rgba(8, 13, 16, 0.35)"
-              strokeWidth={1}
-            />
-          </>
+          <image
+            href={crestUrl}
+            x={center - iconRadius * 0.7}
+            y={yLogo - iconRadius * 0.7}
+            width={iconRadius * 1.4}
+            height={iconRadius * 1.4}
+            preserveAspectRatio="xMidYMid meet"
+          />
         ) : (
           <text
             x={center}
-            y={center - labelRadius}
+            y={yLogo}
             textAnchor="middle"
             dominantBaseline="middle"
-            fill="#0b1210"
-            fontSize={radius * 0.09}
+            fill={sliceColor}
+            fontSize={iconRadius * 0.75}
             fontWeight={900}
             style={{ userSelect: 'none' }}
           >
             {slice.team.code || initialsForTeam(slice.team.name)}
           </text>
         )}
+
+        {/* Text Label next to the logo container */}
+        <text
+          x={center}
+          y={yText}
+          transform={`rotate(${textRot} ${center} ${yText})`}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill="#ffffff"
+          fontSize={radius * 0.044}
+          fontWeight={700}
+          letterSpacing="0.02em"
+          style={{ userSelect: 'none', fontFamily: 'Inter, sans-serif' }}
+        >
+          {labelText}
+        </text>
       </g>
     </g>
   );
 }
+

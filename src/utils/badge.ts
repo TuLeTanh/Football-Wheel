@@ -55,3 +55,90 @@ export function initialsForTeam(name: string): string {
   if (words.length === 1) return words[0].slice(0, 3).toUpperCase();
   return words.slice(0, 3).map((w) => w[0]).join('').toUpperCase();
 }
+
+const REGION_TRANSLATIONS_VI: Record<string, string> = {
+  'Spain': 'Tây Ban Nha',
+  'England': 'Anh',
+  'Germany': 'Đức',
+  'France': 'Pháp',
+  'Italy': 'Ý',
+  'Netherlands': 'Hà Lan',
+  'Portugal': 'Bồ Đào Nha',
+  'Turkey': 'Thổ Nhĩ Kỳ',
+  'Belgium': 'Bỉ',
+  'Brazil': 'Brazil',
+  'Argentina': 'Argentina',
+  'Croatia': 'Croatia',
+  'Uruguay': 'Uruguay',
+  'Colombia': 'Colombia',
+  'USA': 'Mỹ',
+  'United States': 'Mỹ',
+  'Japan': 'Nhật Bản',
+  'South Korea': 'Hàn Quốc',
+  'Morocco': 'Ma-rốc',
+  'Senegal': 'Senegal',
+  'Nigeria': 'Nigeria',
+  'Ghana': 'Ghana',
+  'Egypt': 'Ai Cập',
+  'Vietnam': 'Việt Nam',
+  'Thailand': 'Thái Lan',
+  'Australia': 'Úc',
+  'Switzerland': 'Thụy Sĩ',
+  'Poland': 'Ba Lan',
+  'Denmark': 'Đan Mạch',
+  'Sweden': 'Thụy Điển',
+  'Wales': 'Wales',
+  'Serbia': 'Serbia',
+  'Greece': 'Hy Lạp',
+  'Russia': 'Nga',
+  'Chile': 'Chile',
+  'Austria': 'Áo',
+  'Ivory Coast': 'Bờ Biển Ngà'
+};
+
+export function translateRegion(region: string, lang: string): string {
+  if (lang.startsWith('vi')) {
+    return REGION_TRANSLATIONS_VI[region] ?? region;
+  }
+  return region;
+}
+
+const SHORT_NAMES: Record<string, string> = {
+  'Real Madrid': 'Real Madrid',
+  'Barcelona': 'Barcelona',
+  'Atlético Madrid': 'Atl. Madrid',
+  'Sevilla': 'Sevilla',
+  'Villarreal': 'Villarreal',
+  'Manchester City': 'Man City',
+  'Manchester United': 'Man Utd',
+  'Liverpool': 'Liverpool',
+  'Chelsea': 'Chelsea',
+  'Arsenal': 'Arsenal',
+  'Tottenham Hotspur': 'Tottenham',
+  'Newcastle United': 'Newcastle',
+  'Bayern Munich': 'Bayern',
+  'Borussia Dortmund': 'Dortmund',
+  'RB Leipzig': 'Leipzig',
+  'Bayer Leverkusen': 'Leverkusen',
+  'Paris Saint-Germain': 'PSG',
+  'Olympique de Marseille': 'Marseille',
+  'Olympique Lyonnais': 'Lyon',
+  'AS Monaco': 'Monaco',
+  'Juventus': 'Juventus',
+  'Inter Milan': 'Inter Milan',
+  'AC Milan': 'AC Milan',
+  'Napoli': 'Napoli',
+  'AS Roma': 'AS Roma',
+  'Lazio': 'Lazio',
+  'Ajax': 'Ajax',
+  'PSV Eindhoven': 'PSV',
+  'FC Porto': 'Porto',
+  'Benfica': 'Benfica',
+  'Sporting CP': 'Sporting',
+  'Galatasaray': 'Galatasaray'
+};
+
+export function shortNameForTeam(name: string): string {
+  return SHORT_NAMES[name] ?? name;
+}
+

@@ -59,6 +59,15 @@ a:focus-visible,
   --disabled: #475569;
 }
 
+.light {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --title: #111827;
+  --desc: #6b7280;
+  --disabled: #d1d5db;
+}
+
 .app {
   min-height: 100vh;
   min-height: 100dvh;
@@ -385,30 +394,30 @@ h2 {
 
 .wheelPointer {
   position: absolute;
-  top: -6px;
-  left: 50%;
+  top: 50%;
+  left: -8px;
   width: 0;
   height: 0;
-  transform: translateX(-50%);
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-top: 32px solid var(--color-primary);
+  transform: translateY(-50%) rotate(0deg);
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 32px solid #d12255;
   z-index: 2;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
-  transform-origin: 50% 0%;
+  filter: drop-shadow(2px 0px 4px rgba(0, 0, 0, 0.28));
+  transform-origin: 0% 50%;
 }
 
 .wheelPointer.spinning {
-  animation: pointerTick 90ms ease-in-out infinite;
+  animation: pointerTickLeft 90ms ease-in-out infinite;
 }
 
-@keyframes pointerTick {
+@keyframes pointerTickLeft {
   0%,
   100% {
-    transform: translateX(-50%) rotate(0deg);
+    transform: translateY(-50%) rotate(0deg);
   }
   50% {
-    transform: translateX(-50%) rotate(4deg);
+    transform: translateY(-50%) rotate(-7deg);
   }
 }
 
@@ -438,12 +447,15 @@ h2 {
   width: 42px;
   height: 42px;
   flex: 0 0 auto;
-  display: inline-grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   color: white;
   font-weight: 800;
   box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .badgeLarge {
@@ -453,9 +465,9 @@ h2 {
 }
 
 .badge.badgeImage {
-  background: #ffffff;
+  background: #ffffff !important;
   box-shadow: inset 0 0 0 1px var(--border);
-  padding: 7px;
+  padding: 6px;
 }
 
 .badge.badgeImage img {
@@ -1014,4 +1026,33 @@ button:disabled {
   .secondary {
     width: 100%;
   }
+}
+
+/* Tactile Mobile Bounciness & Active Scales */
+button:active,
+.team:active,
+.historyCard:active,
+.iconButton:active,
+.homeCategoryCard:active,
+.chip:active,
+.segmented button:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.08s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+/* Custom premium pink-red page background for the Wheel Page */
+.wheelPage.light {
+  background: radial-gradient(circle at 10% 20%, rgba(255, 192, 203, 0.4) 0%, rgba(255, 230, 235, 0.25) 90%), linear-gradient(160deg, #fff0f3 0%, #f8fafc 100%);
+}
+
+.wheelPage.dark {
+  background: radial-gradient(circle at 10% 20%, rgba(139, 28, 59, 0.25) 0%, rgba(58, 10, 23, 0.1) 90%), linear-gradient(160deg, #180309 0%, #0f172a 100%);
+}
+
+.wheelPage.teamTinted {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--team-tint) 16%, rgba(255, 240, 243, 0.8)) 0%, var(--bg) 100%) !important;
+}
+
+.wheelPage.dark.teamTinted {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--team-tint) 14%, rgba(24, 3, 9, 0.8)) 0%, var(--bg) 100%) !important;
 }
