@@ -1,0 +1,14 @@
+[
+  { "id": "legend-milan", "name": "AC Milan Legends", "code": "MIL★" },
+  { "id": "legend-inter", "name": "Inter Milan Legends", "code": "INT★" },
+  { "id": "legend-barcelona", "name": "Barcelona Legends", "code": "BAR★" },
+  { "id": "legend-real-madrid", "name": "Real Madrid Legends", "code": "RMA★" },
+  { "id": "legend-man-utd", "name": "Manchester United Legends", "code": "MUN★" },
+  { "id": "legend-liverpool", "name": "Liverpool Legends", "code": "LIV★" },
+  { "id": "legend-juventus", "name": "Juventus Legends", "code": "JUV★" },
+  { "id": "legend-bayern", "name": "Bayern Munich Legends", "code": "BAY★" },
+  { "id": "legend-psg", "name": "PSG Legends", "code": "PSG★" },
+  { "id": "legend-arsenal", "name": "Arsenal Legends", "code": "ARS★" },
+  { "id": "legend-brazil", "name": "Brazil Legends", "code": "BRA★" },
+  { "id": "legend-france", "name": "France Legends", "code": "FRA★" }
+]
