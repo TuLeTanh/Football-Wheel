@@ -107,7 +107,7 @@ export default function WheelSlice({ slice, radius, center, sliceKey, index }: W
           fontSize={radius * 0.044}
           fontWeight={700}
           letterSpacing="0.02em"
-          style={{ userSelect: 'none', fontFamily: 'Inter, sans-serif' }}
+          style={{ userSelect: 'none', fontFamily: 'Outfit, sans-serif' }}
         >
           {labelText}
         </text>

@@ -131,7 +131,7 @@ export default function WheelCanvas({
           fill="#ffffff"
           fontSize={radius * 0.075}
           fontWeight={800}
-          style={{ userSelect: 'none', fontFamily: 'Inter, sans-serif' }}
+          style={{ userSelect: 'none', fontFamily: 'Outfit, sans-serif' }}
         >
           {lang.startsWith('vi') ? (
             <>

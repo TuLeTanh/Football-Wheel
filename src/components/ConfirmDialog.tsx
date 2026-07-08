@@ -46,7 +46,7 @@ export default function ConfirmDialog({
             initial={{ opacity: 0, scale: 0.94, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 8 }}
-            transition={{ duration: 0.2, ease: [0.17, 0.67, 0.16, 0.99] }}
+            transition={{ type: 'spring', stiffness: 120, damping: 20 }}
             onClick={(e) => e.stopPropagation()}
           >
             <h3 id="dialog-title">{title}</h3>

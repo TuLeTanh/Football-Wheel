@@ -10,7 +10,7 @@ body,
 }
 
 body {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Outfit, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 button,
@@ -110,8 +110,9 @@ p {
 
 h1,
 h2 {
-  font-family: Oswald, Inter, sans-serif;
-  letter-spacing: 0;
+  font-family: Oswald, Outfit, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 /* --- Splash (PRD Part 2 / 1.5) --- */
@@ -168,57 +169,114 @@ h2 {
 }
 
 .homeLogo {
-  display: grid;
-  justify-items: center;
-  gap: 4px;
-  padding: 32px 0 8px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 0 16px;
+  text-align: left;
 }
 
 .homeLogoMark {
-  width: 56px;
-  height: 56px;
-  display: grid;
-  place-items: center;
-  border-radius: 18px;
-  background: var(--color-primary);
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #1e40af 100%);
   color: white;
-  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(45, 107, 255, 0.2);
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.homeLogo:hover .homeLogoMark {
+  transform: rotate(15deg) scale(1.05);
+}
+
+.homeLogoTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .homeLogo h1 {
-  font-size: 2.4rem;
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--title);
 }
 
 .homeLogo p {
+  font-size: 0.95rem;
   color: var(--desc);
 }
 
 .homeCategories {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .homeCategoryCard {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 14px;
-  min-height: 72px;
-  padding: 14px 18px;
+  gap: 16px;
+  min-height: 76px;
+  padding: 16px 20px 16px 24px;
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 18px;
   background: var(--card);
   color: inherit;
   text-align: left;
-  transition: transform 0.15s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Offset Asymmetric Left Line Accent to represent 8/10 DESIGN_VARIANCE */
+.homeCategoryCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--category-color, var(--color-primary));
+  opacity: 0.85;
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.homeCategoryCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--category-color, var(--color-primary));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.homeCategoryCard:hover::before {
+  width: 6px;
 }
 
 .homeCategoryCard:active {
-  transform: scale(0.97);
+  transform: translateY(1px) scale(0.98);
 }
 
-.homeCategoryEmoji {
-  font-size: 1.8rem;
+.homeCategoryIconContainer {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--category-color, var(--color-primary)) 10%, var(--card));
+  color: var(--category-color, var(--color-primary));
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.homeCategoryCard:hover .homeCategoryIconContainer {
+  transform: scale(1.08);
 }
 
 .homeCategoryText {
@@ -227,27 +285,51 @@ h2 {
   gap: 2px;
 }
 
+.homeCategoryText strong {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--title);
+}
+
 .homeCategoryText small {
+  font-size: 0.85rem;
   color: var(--desc);
 }
 
 .homeHub {
-  margin-top: 12px;
+  margin-top: 14px;
   display: grid;
-  gap: 10px;
+  grid-template-cols: repeat(3, 1fr);
+  gap: 12px;
 }
 
 .homeHub button {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  min-height: 56px;
-  padding: 0 18px;
+  justify-content: center;
+  gap: 8px;
+  min-height: 84px;
+  padding: 12px;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--card);
   color: inherit;
+  font-size: 0.85rem;
   font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.homeHub button:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  color: var(--color-primary);
+}
+
+.homeHub button:active {
+  transform: translateY(1px) scale(0.97);
 }
 
 /* --- Shared screen header --- */
@@ -336,16 +418,28 @@ h2 {
 }
 
 .statusGrid div {
-  display: grid;
-  gap: 3px;
-  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px 12px;
   border-radius: 14px;
-  background: var(--bg);
+  background: var(--card);
+  border: 1px solid var(--border);
   text-align: center;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.statusGrid div:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .statusGrid span {
-  font-family: Oswald, Inter, sans-serif;
+  font-family: Oswald, Outfit, sans-serif;
   font-size: 1.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -538,13 +632,25 @@ button:disabled {
 }
 
 .listTools button {
-  min-height: 44px;
-  padding: 0 16px;
+  min-height: 46px;
+  padding: 0 18px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--card);
   color: inherit;
   font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.listTools button:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.listTools button:active {
+  transform: translateY(1px) scale(0.97);
 }
 
 .searchBox {
@@ -552,12 +658,14 @@ button:disabled {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   min-height: 52px;
-  padding: 0 14px;
+  padding: 0 16px;
   border-radius: 16px;
   border: 1px solid var(--border);
   background: var(--card);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .searchBox input {
@@ -565,11 +673,12 @@ button:disabled {
   border: 0;
   color: inherit;
   background: transparent;
+  font-size: 0.95rem;
 }
 
 .searchBox:focus-within {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 25%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent), inset 0 2px 4px rgba(0, 0, 0, 0.01);
 }
 
 .searchBox input:focus-visible {
@@ -582,45 +691,82 @@ button:disabled {
   color: var(--desc);
   display: grid;
   place-items: center;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.searchClear:hover {
+  background-color: var(--bg);
 }
 
 .teamList {
   display: grid;
   gap: 8px;
-  max-height: 60vh;
+  max-height: 58vh;
   overflow-y: auto;
+  padding-right: 2px;
 }
 
 .team {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 60px;
-  padding: 10px 12px;
+  gap: 12px;
+  min-height: 64px;
+  padding: 10px 16px;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--card);
   color: inherit;
   text-align: left;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.team:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--border));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .team.selected {
   border-color: var(--color-primary);
-  background: color-mix(in srgb, var(--color-primary) 8%, var(--card));
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--card));
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--color-primary) 6%, transparent);
+}
+
+.team:active {
+  transform: translateY(1px) scale(0.98);
 }
 
 .checkbox {
   width: 22px;
   height: 22px;
   flex: 0 0 auto;
-  border-radius: 7px;
+  border-radius: 6px;
   border: 2px solid var(--border);
-  transition: all 0.15s ease;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkbox.checked {
   border-color: var(--color-primary);
   background: var(--color-primary);
+}
+
+.checkbox.checked::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-top: -2px;
 }
 
 .teamText {
@@ -630,11 +776,15 @@ button:disabled {
 }
 
 .teamText strong {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--title);
   overflow-wrap: anywhere;
 }
 
 .teamText small {
   color: var(--desc);
+  font-size: 0.825rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -898,7 +1048,9 @@ button:disabled {
   display: grid;
   place-items: center;
   padding: 24px;
-  background: rgba(15, 23, 42, 0.55);
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 50;
 }
 
@@ -910,11 +1062,14 @@ button:disabled {
   border-radius: 24px;
   background: var(--card);
   color: var(--title);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .dialogCard p {
   color: var(--desc);
   font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .dialogActions {
