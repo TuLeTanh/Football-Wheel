@@ -95,6 +95,8 @@
   "settings.versionNumber": "1.0.0",
   "settings.license": "Giấy phép",
   "settings.licenseBody": "Team Wheel sử dụng các thành phần mã nguồn mở theo giấy phép MIT. Tên đội và câu lạc bộ thuộc về chủ sở hữu tương ứng và chỉ dùng để nhận diện.",
+  "settings.disclaimer": "Tuyên bố miễn trừ trách nhiệm",
+  "settings.disclaimerBody": "Team Wheel là một công cụ do người hâm mộ phát triển. Ứng dụng không liên kết, liên doanh, hoặc được bảo trợ bởi bất kỳ câu lạc bộ bóng đá, giải đấu, hoặc liên đoàn nào.",
   "settings.privacy": "Quyền riêng tư",
   "settings.privacyBody": "Team Wheel hoạt động hoàn toàn offline. Không tài khoản, không máy chủ, không dữ liệu cá nhân nào rời khỏi thiết bị.",
   "toast.saved": "Đã lưu.",

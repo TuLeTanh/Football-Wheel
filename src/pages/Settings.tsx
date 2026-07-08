@@ -108,6 +108,10 @@ export default function SettingsPage() {
             <p>{t('settings.licenseBody')}</p>
           </div>
           <div className="settingsTextBlock">
+            <strong>{t('settings.disclaimer')}</strong>
+            <p>{t('settings.disclaimerBody')}</p>
+          </div>
+          <div className="settingsTextBlock">
             <strong>{t('settings.privacy')}</strong>
             <p>{t('settings.privacyBody')}</p>
           </div>

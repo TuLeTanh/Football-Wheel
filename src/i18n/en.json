@@ -95,6 +95,8 @@
   "settings.versionNumber": "1.0.0",
   "settings.license": "License",
   "settings.licenseBody": "Team Wheel ships with MIT-licensed open-source components. Team and club names belong to their respective owners and are used for identification only.",
+  "settings.disclaimer": "Disclaimer",
+  "settings.disclaimerBody": "Team Wheel is a fan-made tool. It is not affiliated with, associated with, or endorsed by any football club, league, or federation.",
   "settings.privacy": "Privacy",
   "settings.privacyBody": "Team Wheel runs fully offline. No account, no server and no personal data ever leaves this device.",
   "toast.saved": "Saved.",

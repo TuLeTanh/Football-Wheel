@@ -3,9 +3,10 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { safeStorage } from '@/utils/storage';
 import type { CategoryId } from '@/types';
 import { getAllTeams } from '@/data';
+import { hasCrest } from '@/utils/crest';
 
 interface SelectionState {
-  /** Selected (checked) team ids, per category. Defaults to "all teams". */
+  /** Selected (checked) team ids, per category. Defaults to "teams with crests". */
   selected: Record<CategoryId, string[]>;
   /** Team ids that have been won and locked out of future spins, per category. */
   locked: Record<CategoryId, string[]>;
@@ -23,10 +24,20 @@ function allIds(category: CategoryId): string[] {
   return getAllTeams(category).map((t) => t.id);
 }
 
+function defaultSelectedIds(category: CategoryId): string[] {
+  return getAllTeams(category)
+    .filter((t) => hasCrest(t.id))
+    .map((t) => t.id);
+}
+
 export const useSelectionStore = create<SelectionState>()(
   persist(
     (set, get) => ({
-      selected: { club: allIds('club'), national: allIds('national'), legend: allIds('legend') },
+      selected: {
+        club: defaultSelectedIds('club'),
+        national: defaultSelectedIds('national'),
+        legend: defaultSelectedIds('legend')
+      },
       locked: { club: [], national: [], legend: [] },
       toggleTeam: (category, teamId) =>
         set((s) => {
@@ -56,6 +67,21 @@ export const useSelectionStore = create<SelectionState>()(
     }),
     {
       name: 'team-wheel:selection',
+      version: 1,
+      migrate: (persistedState: any, version: number) => {
+        // If version is 0 (or unversioned), migrate selections to the new logo-only defaults
+        if (version === 0) {
+          return {
+            ...persistedState,
+            selected: {
+              club: defaultSelectedIds('club'),
+              national: defaultSelectedIds('national'),
+              legend: defaultSelectedIds('legend')
+            }
+          };
+        }
+        return persistedState;
+      },
       storage: createJSONStorage(() => safeStorage as unknown as Storage)
     }
   )
